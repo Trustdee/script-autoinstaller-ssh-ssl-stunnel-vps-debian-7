@@ -1,5 +1,5 @@
 #!/bin/bash
-# created by man20820
+# created by Trustdee
 
 # pergi ke root
 cd
@@ -57,28 +57,28 @@ echo "screenfetch" >> .bash_profile
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/nginx.conf"
 mkdir -p /home/webserver/public_html
-echo "<pre>Setup by man20820 | https://man20820.com | https:// tkjpedia.com </pre>" > /home/webserver/public_html/index.html
+echo "<pre>Setup by Trustdee | https://Trustdee.com | https:// tkjpedia.com </pre>" > /home/webserver/public_html/index.html
 echo "<?php phpinfo(); ?>" > /home/webserver/public_html/info.php
-wget -O /etc/nginx/conf.d/webserver.conf "https://raw.githubusercontent.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/webserver.conf"
+wget -O /etc/nginx/conf.d/webserver.conf "https://raw.githubusercontent.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/webserver.conf"
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 service php5-fpm restart
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/ca.crt"
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/dh1024.pem"
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/openvpn.conf"
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/server.conf"
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/server.crt"
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/server.key"
-wget -O /etc/openvpn/openvpn "https://rawgit.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/update-resolf-conf"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/ca.crt"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/dh1024.pem"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/openvpn.conf"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/server.conf"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/server.crt"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/server.key"
+wget -O /etc/openvpn/openvpn "https://rawgit.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/update-resolf-conf"
 cd /etc/openvpn/
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/iptables.up.rules"
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 MYIP=`curl -s ifconfig.me`;
 MYIP2="s/xxxxxxxxx/$MYIP/g";
@@ -88,12 +88,12 @@ service openvpn restart
 
 #konfigurasi openvpn
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/client.ovpn"
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/openvpn/client.ovpn"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
-useradd -M -s /bin/false man20820
-echo "man20820$PASS" | chpasswd
-echo "man20820" > pass.txt
+useradd -M -s /bin/false Trustdee
+echo "Trustdee$PASS" | chpasswd
+echo "Trustdee" > pass.txt
 echo "$PASS" >> pass.txt
 tar cf client.tar client.ovpn pass.txt
 cp client.tar /home/vps/public_html/
@@ -132,14 +132,14 @@ service ssh restart
 apt-get -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=20820/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 110"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 8443"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 service ssh restart
 service dropbear restart
 
 # install stunnel 
 apt-get install stunnel4 -y
-wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/man20820/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/stunnel.conf"
+wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/Trustdee/script-autoinstaller-ssh-ssl-stunnel-vps-debian-7/master/stunnel.conf"
 openssl genrsa -out key.pem 2048
 openssl req -new -x509 -key key.pem -out cert.pem -days 1095
 cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
@@ -250,7 +250,7 @@ echo "Service"  | tee -a log-install.txt
 echo "-------"  | tee -a log-install.txt
 echo "OpenVPN  : TCP 1194 (client config : http://$MYIP/client.tar)"  | tee -a log-install.txt
 echo "OpenSSH  : 22, 143"  | tee -a log-install.txt
-echo "Dropbear : 109, 110, 443"  | tee -a log-install.txt
+echo "Dropbear : 109, 8443, 443"  | tee -a log-install.txt
 echo "Squid3   : 8080 (limit to IP SSH)"  | tee -a log-install.txt
 echo "badvpn   : badvpn-udpgw port 7300"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
